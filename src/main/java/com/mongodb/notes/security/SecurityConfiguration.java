@@ -33,8 +33,8 @@ public class SecurityConfiguration {
         return httpSecurity.csrf(CsrfConfigurer::disable)
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(authorize -> authorize
-                        .requestMatchers("/login").permitAll()
-                        .anyRequest().hasRole("USER"))
+                        .requestMatchers("/notes").hasRole("USER")
+                        .anyRequest().permitAll())
                 .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)
                 .build();
     }
