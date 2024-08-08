@@ -27,11 +27,16 @@ public class SecurityFilter extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         if (request.getRequestURI().startsWith("/notes")) {
-            String token = request.getHeader("Authorization");
-            String username = tokenService.validateToken(token);
-            UserDetails userDetails = userDetailsService.loadUserByUsername(username);
-            var usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
-            SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
+            try {
+                String token = request.getHeader("Authorization");
+                String username = tokenService.validateToken(token);
+                UserDetails userDetails = userDetailsService.loadUserByUsername(username);
+                var usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
+                SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
+            } catch (Exception e) {
+                response.sendError(401);
+                return;
+            }
         }
         filterChain.doFilter(request, response);
     }
