@@ -1,4 +1,4 @@
-package com.mongodb.notes.core;
+package com.mongodb.notes.core.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;

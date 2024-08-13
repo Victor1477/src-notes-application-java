@@ -1,5 +1,7 @@
-package com.mongodb.notes.core;
+package com.mongodb.notes.core.controller;
 
+import com.mongodb.notes.core.model.NotesModel;
+import com.mongodb.notes.core.service.NotesService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

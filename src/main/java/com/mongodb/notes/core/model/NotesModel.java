@@ -1,4 +1,4 @@
-package com.mongodb.notes.core;
+package com.mongodb.notes.core.model;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;

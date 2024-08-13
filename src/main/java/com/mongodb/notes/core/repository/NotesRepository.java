@@ -1,5 +1,6 @@
-package com.mongodb.notes.core;
+package com.mongodb.notes.core.repository;
 
+import com.mongodb.notes.core.model.NotesModel;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
 

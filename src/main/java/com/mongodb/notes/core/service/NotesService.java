@@ -1,5 +1,7 @@
-package com.mongodb.notes.core;
+package com.mongodb.notes.core.service;
 
+import com.mongodb.notes.core.model.NotesModel;
+import com.mongodb.notes.core.repository.NotesRepository;
 import jakarta.annotation.Resource;
 import lombok.Getter;
 import lombok.Setter;
