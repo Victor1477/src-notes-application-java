@@ -12,7 +12,7 @@ public class JFrameWindow extends OutputStream {
     private JTextArea jTextArea;
 
     public JFrameWindow() {
-        jFrame = new JFrame();
+        jFrame = new JFrame("Notes Application");
         jTextArea = new JTextArea();
         jScrollPane = new JScrollPane(jTextArea);
         jFrame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
