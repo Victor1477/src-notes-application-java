@@ -10,4 +10,9 @@ public class WebController {
     public String sendHomePage() {
         return "index.html";
     }
+
+    @GetMapping("/authentication")
+    public String redirectToHomePage() {
+        return "redirect:/";
+    }
 }
