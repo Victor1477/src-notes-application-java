@@ -1,5 +1,6 @@
-package com.mongodb.notes.security;
+package com.mongodb.notes.security.filter;
 
+import com.mongodb.notes.security.service.TokenService;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;

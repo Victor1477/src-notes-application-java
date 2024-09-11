@@ -1,4 +1,4 @@
-package com.mongodb.notes.security;
+package com.mongodb.notes.security.service;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
@@ -35,6 +35,6 @@ public class TokenService {
     }
 
     public Instant generateExpirationDate() {
-        return LocalDateTime.now(ZoneId.of("America/Sao_Paulo")).plusHours(2).toInstant(ZoneOffset.of("-03:00"));
+        return LocalDateTime.now(ZoneId.of("America/Sao_Paulo")).plusHours(4).toInstant(ZoneOffset.of("-03:00"));
     }
 }

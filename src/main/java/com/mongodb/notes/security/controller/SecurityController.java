@@ -1,5 +1,6 @@
-package com.mongodb.notes.security;
+package com.mongodb.notes.security.controller;
 
+import com.mongodb.notes.security.service.TokenService;
 import com.mongodb.notes.security.dto.TokenResponseDTO;
 import com.mongodb.notes.security.dto.UserLoginDTO;
 import org.springframework.beans.factory.annotation.Autowired;

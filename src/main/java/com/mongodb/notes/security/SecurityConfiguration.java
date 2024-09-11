@@ -1,5 +1,6 @@
 package com.mongodb.notes.security;
 
+import com.mongodb.notes.security.filter.SecurityFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
