@@ -1,46 +1,44 @@
 package com.mongodb.notes.security.service;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
-import java.util.HashMap;
+import java.util.concurrent.ConcurrentHashMap;
 
 @Service
 public class BruteForceAttackService {
 
-    private final HashMap<String, UserLoginTracker> trackers = new HashMap<>();
+    @Value("${api.security.login.username}")
+    private String username;
+
+    private final ConcurrentHashMap<String, UserLoginTracker> trackers = new ConcurrentHashMap<>();
 
     public boolean countAttemptAndValidateIsToBlockUserLogin(String username, Boolean isBadCredentials) {
-        if (trackers.containsKey(username)) {
-            UserLoginTracker userLoginTracker = trackers.get(username);
-            if (userLoginTracker.lastAttempt().plusMinutes(15).isBefore(LocalDateTime.now())) {
-                trackers.remove(username);
-            }
+        if (!this.username.equals(username)) {
+            return false;
         }
 
-        if (isBadCredentials) {
-            if (!trackers.containsKey(username)) {
-                trackers.put(username, new UserLoginTracker(LocalDateTime.now(), 1));
-            } else {
-                UserLoginTracker userLoginTracker = trackers.get(username);
-                if (userLoginTracker.loginAttempts() < 3) {
-                    trackers.put(username, new UserLoginTracker(LocalDateTime.now(), userLoginTracker.loginAttempts() + 1));
+        trackers.compute(username, (key, tracker) -> {
+            if (tracker != null && tracker.lastAttempt().plusMinutes(15).isBefore(LocalDateTime.now())) {
+                tracker = null;
+            }
+
+            if (Boolean.TRUE.equals(isBadCredentials)) {
+                if (tracker == null) {
+                    return new UserLoginTracker(LocalDateTime.now(), 1);
                 }
+                if (tracker.loginAttempts() < 3) {
+                    return new UserLoginTracker(LocalDateTime.now(), tracker.loginAttempts() + 1);
+                }
+                return tracker;
             }
-            return true;
-        }
 
-        if (trackers.containsKey(username)) {
-            UserLoginTracker userLoginTracker = trackers.get(username);
+            return tracker;
+        });
 
-            if (userLoginTracker.loginAttempts() > 2) {
-                return true;
-            } else {
-                trackers.remove(username);
-            }
-        }
-
-        return false;
+        UserLoginTracker tracker = trackers.get(username);
+        return tracker != null && tracker.loginAttempts() > 2;
     }
 }
 
